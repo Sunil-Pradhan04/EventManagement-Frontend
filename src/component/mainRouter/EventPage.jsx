@@ -221,7 +221,6 @@ const EventPage = () => {
             id: index,
             _id: a._id, // Store real ID for deletion
             title: a.Aheader,
-            title: a.Aheader,
             content: a.Adescription,
             expanded: false,
           }))

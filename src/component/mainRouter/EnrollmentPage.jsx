@@ -1,5 +1,5 @@
 import React from "react";
-import "./Rstyle/EnrollmentPage.css";
+import "./RStyle/EnrollmentPage.css";
 import { useDispatch } from "react-redux";
 import { showToast } from "../../Store/notificationSlice";
 import { API_URL } from "../../config";

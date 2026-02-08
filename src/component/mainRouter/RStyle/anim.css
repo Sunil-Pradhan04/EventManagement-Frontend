@@ -1,0 +1,10 @@
+@keyframes EnterTop {
+  from {
+    transform: translateY(40px);
+    opacity: 0.3;
+  }
+  to {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}

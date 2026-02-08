@@ -1,0 +1,49 @@
+h2 {
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.info_text {
+  color: #cbd5e1;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+.button_group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.btn_primary {
+  background: #3b82f6;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn_primary:hover {
+  background: #2563eb;
+}
+
+.btn_secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #60a5fa;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn_secondary:hover {
+  background: rgba(96, 165, 250, 0.2);
+  border-color: #3b82f6;
+}
+
+

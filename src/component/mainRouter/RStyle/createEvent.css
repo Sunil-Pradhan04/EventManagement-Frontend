@@ -1,0 +1,231 @@
+/* Fullscreen Overlay */
+.event-overlay {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* Glassmorphism Form */
+.event-form-container {
+  width: 85%;
+  max-width: 900px;
+  height: 90vh;
+  padding: 2rem 2.5rem;
+  border-radius: 20px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  position: relative;
+  animation: fadeIn 0.6s ease;
+  scrollbar-width: none;
+}
+
+/* Gradient Glow */
+.glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.1)
+  );
+}
+
+/* Scrollbar */
+.event-form-container::-webkit-scrollbar {
+  width: 6px;
+}
+.event-form-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+}
+
+
+
+/* Title */
+.form-title {
+  text-align: center;
+  font-size: 1.9rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, #00f5a0, #00d9f5, #007bff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.2rem;
+}
+
+/* Input fields */
+.event-form label {
+  display: block;
+  color: #fff;
+  font-weight: 600;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  width: 100%;
+}
+
+.event-form input,
+.event-form textarea {
+  width: 96%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 2%;
+  color: #fff;
+  font-size: 1rem;
+  transition: 0.3s;
+  margin: 5px 0px;
+
+}
+
+.event-form input:focus,
+.event-form textarea:focus {
+  border-color: #00d9f5;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 10px rgba(0, 217, 245, 0.4);
+  outline: none;
+}
+
+/* Add button */
+.add-btn {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #007bff, #00d9f5);
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.add-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(0, 217, 245, 0.5);
+}
+
+/* Checkbox group */
+.checkbox-group {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.checkbox-box {
+  position: relative;
+  padding: 14px 22px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 14px;
+  cursor: pointer;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  transition: 0.3s;
+}
+.checkbox-box:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+.checkbox-box.checked {
+  background: linear-gradient(135deg, #00d9f5, #007bff);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(0, 217, 245, 0.6);
+}
+.checkbox-box .tick {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 0.9rem;
+}
+
+/* Tags */
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+.tag {
+  background: linear-gradient(135deg, #007bff, #00d9f5);
+  padding: 6px 12px;
+  border-radius: 10px;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Character counter */
+.char-count {
+  text-align: right;
+  color: #ccc;
+  font-size: 0.8rem;
+}
+
+/* Submit button */
+.submit-btn {
+  width: 100%;
+  margin-top: 16px;
+  background: linear-gradient(135deg, #00f5a0, #00d9f5, #007bff);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.submit-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 217, 245, 0.5);
+}
+
+/* Message */
+.msg {
+  width: 96%;
+  text-align: center;
+  color: #f96363;
+  margin-bottom: 10px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 2%;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .event-form-container {
+    width: 90%;
+    height: 90vh;
+    padding: 3%;
+    margin: 2%;
+  }
+  .form-title {
+    font-size: 1.6rem;
+  }
+  .event-form input,
+  .event-form textarea {
+    width: 94%;
+  }
+}

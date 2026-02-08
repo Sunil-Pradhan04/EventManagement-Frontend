@@ -1,0 +1,224 @@
+/* AI Hub Container */
+.ai-hub-container {
+  padding: 2rem;
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+  color: #e2e8f0;
+  font-family: 'Inter', sans-serif;
+  padding-top: 4=20px;
+}
+
+.ai-hub-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.ai-hub-title {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #d946ef 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+  margin-bottom: 1rem;
+  letter-spacing: -0.05em;
+}
+
+.ai-hub-subtitle {
+  color: #94a3b8;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Grid Layout */
+.ai-event-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+/* AI Event Card */
+.ai-event-card {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: 20px;
+  padding: 1.5rem;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.ai-event-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(139, 92, 246, 0.5);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+.ai-event-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent 0%, rgba(139, 92, 246, 0.05) 50%, transparent 100%);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.ai-event-card:hover::before {
+  transform: translateX(100%);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.ai-badge {
+  background: rgba(139, 92, 246, 0.1);
+  color: #a78bfa;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.event-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 0.5rem;
+}
+
+.event-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.tag {
+  font-size: 0.75rem;
+  color: #64748b;
+  background: rgba(15, 23, 42, 0.5);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* Buttons */
+.card-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  height: 48px;
+  /* Explicit height */
+  padding: 0 1.2rem;
+  /* Reduce vertical padding */
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+  outline: none;
+  font-size: 0.95rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  min-width: 120px;
+  /* Ensure minimum width */
+}
+
+/* Ask AI - Gradient Glow */
+.ask-ai-btn {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.ask-ai-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+}
+
+.ask-ai-btn:hover::before {
+  opacity: 1;
+}
+
+/* Quick Mail - Cyan Tech */
+.quick-mail-btn {
+  background: rgba(15, 23, 42, 0.6);
+  color: #94a3b8;
+  border-color: rgba(56, 189, 248, 0.25);
+}
+
+.quick-mail-btn:hover {
+  background: rgba(6, 182, 212, 0.1);
+  color: #22d3ee;
+  border-color: #22d3ee;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.25);
+  transform: translateY(-2px);
+}
+
+.icon {
+  font-size: 1.1rem;
+}
+
+/* Animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.ai-icon-anim {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .ai-hub-title {
+    font-size: 2rem;
+  }
+
+  .ai-hub-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .ai-event-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .ai-event-card {
+    padding: 1.2rem;
+  }
+
+  .event-name {
+    font-size: 1.25rem;
+  }
+}

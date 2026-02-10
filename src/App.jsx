@@ -38,15 +38,19 @@ function App() {
     <div className="body">
       <Toast />
       {showLoader && <Loader />}
-      <Routes>
-        <Route path="*" element={loggedIn ? <Home /> : <Student_Login checkSession={checkSession} />} />
-        <Route path="/teacher_login" element={loggedIn ? <Navigate to="/" /> : <Teacher_Login checkSession={checkSession} />} />
-        <Route path="/verification" element={<VerificationCode />} />
-        <Route path="/ChangePasswordRequest" element={<ChangePasswordRequest />} />
-        <Route path="/PasswordVerificaton" element={<PasswordVerification />} />+
-        <Route path="/PostVerificaton" element={<PostVerification checkSession={checkSession} />} />
-        <Route path="/ChangePassword" element={<ChangePassword />} />
-      </Routes>
+      {loggedIn === null ? (
+        <Loader />
+      ) : (
+        <Routes>
+          <Route path="*" element={loggedIn ? <Home /> : <Student_Login checkSession={checkSession} />} />
+          <Route path="/teacher_login" element={loggedIn ? <Navigate to="/" /> : <Teacher_Login checkSession={checkSession} />} />
+          <Route path="/verification" element={<VerificationCode />} />
+          <Route path="/ChangePasswordRequest" element={<ChangePasswordRequest />} />
+          <Route path="/PasswordVerificaton" element={<PasswordVerification />} />+
+          <Route path="/PostVerificaton" element={<PostVerification checkSession={checkSession} />} />
+          <Route path="/ChangePassword" element={<ChangePassword />} />
+        </Routes>
+      )}
     </div>
   );
 }

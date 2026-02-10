@@ -14,9 +14,10 @@ const AiEventCard = ({ event }) => {
   const [showChat, setShowChat] = useState(false);
   const [showMail, setShowMail] = useState(false);
 
-  // Check permissions: Admin OR Event Coordinator
+  // Check permissions: Admin (Creator) OR Event Coordinator
   const canSendMail =
-    user.role === "admin" || (event.coordinators && event.coordinators.includes(user.email));
+    (user.role === "admin" && (user.events || []).includes(event.Ename)) ||
+    (event.coordinators && event.coordinators.includes(user.email));
 
   return (
     <>

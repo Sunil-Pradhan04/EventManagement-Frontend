@@ -15,7 +15,7 @@ const EventAIChat = ({ event, setAiVisible }) => {
   const [AiLanguage, setAiLanguage] = useState("english");
   const [remaining, setRemaining] = useState(null); // Null means unknown or unlimited
 
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.profile.data);
   const isAdmin = user?.role === "admin";
 
   const chatEndRef = useRef(null);

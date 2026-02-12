@@ -248,31 +248,66 @@
   cursor: not-allowed;
 }
 
+/* Limit Indicator */
+.limit-indicator {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid;
+  border-radius: 8px;
+  background: rgba(20, 20, 45, 0.6);
+  white-space: nowrap;
+}
+
 /* Mobile adjustments */
 @media (max-width: 520px) {
   .ai-chat-container {
-    height: 100vh;
-    max-height: 100vh;
+    height: 100dvh;
+    /* Use dynamic viewport height */
+    max-height: 100dvh;
     border-radius: 0;
     width: 100%;
   }
 
   .chat-header {
     padding: 0.8rem;
+    flex-wrap: wrap;
+    /* Allow wrapping */
+    gap: 0.5rem;
+    padding-right: 1rem;
+    /* Reset padding */
+  }
+
+  .header-title {
+    width: 100%;
+    /* Full width on verify small screens or just shrink */
+    justify-content: center;
+    margin-bottom: 0.2rem;
   }
 
   .header-title h2 {
     font-size: 1.1rem;
   }
 
-  .ai-icon {
-    font-size: 1.2rem;
+  .header-controls {
+    width: 100%;
+    justify-content: space-between;
+    /* Spread controls */
+    gap: 0.5rem;
+  }
+
+  /* Make language selector smaller */
+  .language-select {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.85rem;
   }
 
   .close-btn {
     width: 32px;
     height: 32px;
     font-size: 1.1rem;
+    position: static;
+    /* Remove absolute positioning on mobile */
   }
 
   .chat-body {
@@ -284,11 +319,12 @@
     max-width: 90%;
     padding: 0.7rem 1rem;
     font-size: 0.9rem;
-    /* Smaller text for mobile */
   }
 
   .chat-input-area {
     padding: 0.8rem;
+    padding-bottom: max(0.8rem, env(safe-area-inset-bottom));
+    /* Safe area for iPhone */
   }
 
   .chat-input-area textarea {

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import "./aiPage.css";
 import { API_URL } from "../../config";
+import { useSelector } from "react-redux";
 
 const EventAIChat = ({ event, setAiVisible }) => {
   const [messages, setMessages] = useState([
@@ -12,17 +13,12 @@ const EventAIChat = ({ event, setAiVisible }) => {
   const [userMsg, setUserMsg] = useState("");
   const [loading, setLoading] = useState(false);
   const [AiLanguage, setAiLanguage] = useState("english");
+  const [remaining, setRemaining] = useState(null); // Null means unknown or unlimited
+
+  const user = useSelector((state) => state.auth.user);
+  const isAdmin = user?.role === "admin";
 
   const chatEndRef = useRef(null);
-
-  const removeEmojis = (text) => {
-    return text.replace(
-      /([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF])/g,
-      ""
-    );
-  };
-
-
 
   const scrollToBottom = () => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -31,6 +27,12 @@ const EventAIChat = ({ event, setAiVisible }) => {
   useEffect(() => {
     scrollToBottom();
   }, [messages, loading]);
+
+  useEffect(() => {
+    if (user && !isAdmin && user.aiQuestionCount !== undefined) {
+      setRemaining(20 - user.aiQuestionCount);
+    }
+  }, [user, isAdmin]);
 
   const sendMessage = async () => {
     if (!userMsg.trim()) return;
@@ -48,7 +50,21 @@ const EventAIChat = ({ event, setAiVisible }) => {
         body: JSON.stringify({ message: text, Ename: event?.Ename, language: AiLanguage }),
       });
       console.log("AI Response:", resp);
+
       const data = await resp.json();
+
+      // Update remaining count if provided
+      if (data.remainingQuestions !== undefined && data.remainingQuestions !== "Unlimited") {
+        setRemaining(data.remainingQuestions);
+      }
+
+      if (resp.status === 403) {
+        setMessages((prev) => [...prev, { sender: "AI", msg: data.response }]);
+        setRemaining(0);
+        setLoading(false);
+        return;
+      }
+
       const reply = data.response || "Sorry, I couldn't fetch an answer. Please try again.";
 
       let showText = "";
@@ -89,25 +105,38 @@ const EventAIChat = ({ event, setAiVisible }) => {
     }
   };
 
+  // Determine limit color
+  const getLimitColor = () => {
+    if (remaining === null || isAdmin) return "#4caf50"; // Green (safe)
+    if (remaining > 10) return "#4caf50";
+    if (remaining > 0) return "#ff9800"; // Orange
+    return "#f44336"; // Red
+  };
+
   return (
     <div className="ai-chat-overlay">
       <div className="ai-chat-container">
         <div className="chat-header">
           <div className="header-title">
             <span className="ai-icon">✦</span>
-            <h2>{event?.Ename} AI Assistant</h2>
+            <h2>{event?.Ename} AI</h2>
           </div>
 
           <div className="header-controls">
+            {!isAdmin && remaining !== null && (
+              <div className="limit-indicator" style={{ borderColor: getLimitColor(), color: getLimitColor() }}>
+                {remaining} left
+              </div>
+            )}
 
             <select
               className="language-select"
               value={AiLanguage}
               onChange={(e) => setAiLanguage(e.target.value)}
             >
-              <option value="english">English</option>
-              <option value="hindi">हिन्दी</option>
-              <option value="odia">ଓଡ଼ିଆ</option>
+              <option value="english">EN</option>
+              <option value="hindi">HI</option>
+              <option value="odia">OD</option>
             </select>
 
             <button className="close-btn" onClick={() => setAiVisible(false)}>
@@ -143,7 +172,7 @@ const EventAIChat = ({ event, setAiVisible }) => {
 
         <div className="chat-input-area">
           <textarea
-            placeholder="Ask anything about the event..."
+            placeholder={remaining === 0 ? "Ask about 'Rules' (Unlimited)..." : "Ask anything..."}
             value={userMsg}
             onChange={(e) => setUserMsg(e.target.value)}
             onKeyDown={handleKey}

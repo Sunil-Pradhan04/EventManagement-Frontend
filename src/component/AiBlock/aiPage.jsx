@@ -3,6 +3,72 @@ import "./aiPage.css";
 import { API_URL } from "../../config";
 import { useSelector } from "react-redux";
 
+/* ---------- Simple Markdown → JSX ---------- */
+const formatMessage = (text) => {
+  if (!text) return text;
+
+  // Split into lines
+  const lines = text.split("\n");
+  const elements = [];
+  let listItems = [];
+
+  const flushList = () => {
+    if (listItems.length > 0) {
+      elements.push(<ol key={`ol-${elements.length}`} className="ai-list">{listItems}</ol>);
+      listItems = [];
+    }
+  };
+
+  lines.forEach((line, idx) => {
+    // Check for numbered list: "1. text" or "1) text"
+    const listMatch = line.match(/^\s*(\d+)[.)]+\s+(.+)/);
+    if (listMatch) {
+      listItems.push(<li key={`li-${idx}`}>{parseBold(listMatch[2])}</li>);
+      return;
+    }
+
+    // Not a list item → flush any pending list
+    flushList();
+
+    const trimmed = line.trim();
+    if (trimmed === "") {
+      elements.push(<br key={`br-${idx}`} />);
+    } else {
+      elements.push(<p key={`p-${idx}`} className="ai-para">{parseBold(trimmed)}</p>);
+    }
+  });
+
+  flushList();
+  return elements;
+};
+
+/* Convert **bold** and URLs inside a string to <strong> and <a> */
+const parseBold = (str) => {
+  // First split on URLs to make them clickable
+  const urlRegex = /(https?:\/\/[^\s),"']+)/g;
+  const urlParts = str.split(urlRegex);
+
+  return urlParts.flatMap((segment, j) => {
+    // If this segment is a URL, render as a clickable link
+    if (urlRegex.test(segment)) {
+      urlRegex.lastIndex = 0; // reset regex state
+      return (
+        <a key={`link-${j}`} href={segment} target="_blank" rel="noopener noreferrer" className="ai-link">
+          {segment}
+        </a>
+      );
+    }
+    // Otherwise, handle **bold** within the text
+    const boldParts = segment.split(/(\*\*[^*]+\*\*)/);
+    return boldParts.map((part, i) => {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return <strong key={`b-${j}-${i}`}>{part.slice(2, -2)}</strong>;
+      }
+      return part;
+    });
+  });
+};
+
 const EventAIChat = ({ event, setAiVisible }) => {
   const [messages, setMessages] = useState([
     {
@@ -152,7 +218,7 @@ const EventAIChat = ({ event, setAiVisible }) => {
               className={`message-bubble ${m.sender === "user" ? "user-message" : "ai-message"
                 } ${m.sender === "AI-typing" ? "typing" : ""}`}
             >
-              {m.msg}
+              {m.sender === "user" ? m.msg : formatMessage(m.msg)}
             </div>
           ))}
 

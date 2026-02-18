@@ -148,6 +148,40 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
+/* ── AI Formatted Content ── */
+.ai-message .ai-para {
+  margin: 0.25rem 0;
+}
+
+.ai-message .ai-list {
+  margin: 0.5rem 0;
+  padding-left: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ai-message .ai-list li {
+  line-height: 1.5;
+}
+
+.ai-message strong {
+  color: #c4b5fd;
+  font-weight: 700;
+}
+
+.ai-message .ai-link {
+  color: #a78bfa;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  word-break: break-all;
+  transition: color 0.2s;
+}
+
+.ai-message .ai-link:hover {
+  color: #c4b5fd;
+}
+
 .typing {
   opacity: 0.85;
 }

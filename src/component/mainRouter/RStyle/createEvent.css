@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999;
+  z-index: 9999;
 }
 
 /* Glassmorphism Form */
@@ -29,17 +29,16 @@
 
 /* Gradient Glow */
 .glass {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.3),
-    rgba(255, 255, 255, 0.1)
-  );
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.1));
 }
 
 /* Scrollbar */
 .event-form-container::-webkit-scrollbar {
   width: 6px;
 }
+
 .event-form-container::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.5);
   border-radius: 10px;
@@ -105,6 +104,7 @@
   font-weight: 600;
   transition: 0.3s;
 }
+
 .add-btn:hover {
   transform: scale(1.05);
   box-shadow: 0 0 12px rgba(0, 217, 245, 0.5);
@@ -128,16 +128,19 @@
   background: rgba(255, 255, 255, 0.08);
   transition: 0.3s;
 }
+
 .checkbox-box:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: scale(1.05);
 }
+
 .checkbox-box.checked {
   background: linear-gradient(135deg, #00d9f5, #007bff);
   border-color: transparent;
   color: #fff;
   box-shadow: 0 0 15px rgba(0, 217, 245, 0.6);
 }
+
 .checkbox-box .tick {
   position: absolute;
   top: 6px;
@@ -152,6 +155,7 @@
   gap: 6px;
   margin-top: 6px;
 }
+
 .tag {
   background: linear-gradient(135deg, #007bff, #00d9f5);
   padding: 6px 12px;
@@ -182,6 +186,7 @@
   cursor: pointer;
   transition: 0.4s;
 }
+
 .submit-btn:hover {
   transform: scale(1.05);
   box-shadow: 0 0 20px rgba(0, 217, 245, 0.5);
@@ -207,6 +212,7 @@
     opacity: 0;
     transform: translateY(40px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -221,9 +227,11 @@
     padding: 3%;
     margin: 2%;
   }
+
   .form-title {
     font-size: 1.6rem;
   }
+
   .event-form input,
   .event-form textarea {
     width: 94%;

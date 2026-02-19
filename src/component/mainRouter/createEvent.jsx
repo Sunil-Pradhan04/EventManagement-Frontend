@@ -43,8 +43,8 @@ const CreateEvent = ({ onClose }) => {
       return;
     }
 
-    if (rules.length > 1000) {
-      setMsg("⚠️ Rules must not exceed 1000 characters.");
+    if (rules.length > 2000) {
+      setMsg("⚠️ Rules must not exceed 2000 characters.");
       return;
     }
 
@@ -152,11 +152,11 @@ const CreateEvent = ({ onClose }) => {
           <textarea
             value={rules}
             onChange={(e) => setRules(e.target.value)}
-            placeholder="Write event rules (max 1000 characters)"
-            maxLength={1000}
+            placeholder="Write event rules (max 2000 characters)"
+            maxLength={2000}
             rows={10}
           ></textarea>
-          <div className="char-count">{rules.length}/1000</div>
+          <div className="char-count">{rules.length}/2000</div>
 
           <label>Tags (comma separated)</label>
           <input

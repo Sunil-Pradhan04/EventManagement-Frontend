@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style/Student_Login.css";
 import { useDispatch } from "react-redux";
-import { setLoader } from "../Store/loderSlice";
+import { setLoader } from "../Store/loaderSlice";
 import { showToast } from "../Store/notificationSlice";
 import { API_URL } from "../config";
 
@@ -29,7 +29,7 @@ const Student_Login = ({ checkSession }) => {
     const adminPassword = adminPasswordRef.current?.value || "";
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{6,}$/;
 
     // ----- Validation -----
     if (
@@ -121,7 +121,7 @@ const Student_Login = ({ checkSession }) => {
         <div className="corner-panel corner-top-right">
           <div className="tag">Events</div>
           <div className="title">Tech fest</div>
-          <div className="desc">Enrole</div>
+          <div className="desc">Enroll</div>
         </div>
 
         <div className="corner-panel corner-bottom-left">

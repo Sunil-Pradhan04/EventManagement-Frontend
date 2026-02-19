@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import { setLoader } from "./loderSlice";
+import { setLoader } from "./loaderSlice";
 import { API_URL } from "../config";
 
 // Async thunk to fetch events by page

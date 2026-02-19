@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./RStyle/createEvent.css";
 import { useDispatch } from "react-redux";
-import { setLoader } from "../../Store/loderSlice";
+import { setLoader } from "../../Store/loaderSlice";
 import { API_URL } from "../../config";
 import { updateEvent } from "../../Store/eventSlice";
 

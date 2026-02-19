@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./style/ChangePassword.css";
 import { useDispatch } from "react-redux";
-import { setLoader } from "../Store/loderSlice";
+import { setLoader } from "../Store/loaderSlice";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../config";
 

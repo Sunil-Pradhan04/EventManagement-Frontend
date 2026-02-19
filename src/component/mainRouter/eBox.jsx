@@ -37,7 +37,7 @@ const EBox = ({ event }) => {
         <div className={event.visibility ? "sty1" : "sty2"}></div>
       </div>
       <div className="tags">
-        {event.tags.slice(0, 2).map((tag, index) => {
+        {(event.tags || []).slice(0, 2).map((tag, index) => {
           return <span key={index}>{tag}</span>;
         })}
       </div>

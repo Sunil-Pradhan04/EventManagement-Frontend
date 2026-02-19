@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import loaderReducer from "./loderSlice";
+import loaderReducer from "./loaderSlice";
 import profileReducer from "./ProfileSlice";
 import eventReducer from './eventSlice'
 import notificationReducer from './notificationSlice'

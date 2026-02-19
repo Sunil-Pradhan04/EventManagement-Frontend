@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./RStyle/createEvent.css";
 import { useDispatch } from "react-redux";
 import { addEvent } from "../../Store/eventSlice";
-import { setLoader } from "../../Store/loderSlice";
+import { setLoader } from "../../Store/loaderSlice";
 import { API_URL } from "../../config";
 
 const CreateEvent = ({ onClose }) => {

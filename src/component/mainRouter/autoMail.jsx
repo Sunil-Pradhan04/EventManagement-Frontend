@@ -115,7 +115,7 @@ const AutoMail = ({ onClose, eventName }) => {
             {sendMailLoader ? (
               <div className="loader-container">
                 <div className="loader"></div>
-                <p>Sendind mail...</p>
+                <p>Sending mail...</p>
               </div>
             ) : (
               <div>

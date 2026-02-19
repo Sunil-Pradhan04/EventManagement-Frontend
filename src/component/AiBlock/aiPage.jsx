@@ -73,7 +73,7 @@ const EventAIChat = ({ event, setAiVisible }) => {
   const [messages, setMessages] = useState([
     {
       sender: "AI",
-      msg: `Hey! I’m the ${event?.Ename} AI Assistant. Ask me anything about the event. 😊`,
+      msg: `Hey! I'm your AI Assistant. Ask me anything about the event.(24/7)😊`,
     },
   ]);
   const [userMsg, setUserMsg] = useState("");
@@ -109,11 +109,20 @@ const EventAIChat = ({ event, setAiVisible }) => {
     setLoading(true);
 
     try {
+      // Build chat history from current messages for the backend
+      const chatHistory = messages
+        .filter((m) => m.sender === "user" || m.sender === "AI")
+        .slice(-6)
+        .map((m) => ({
+          role: m.sender === "user" ? "user" : "assistant",
+          content: m.msg.length > 200 ? m.msg.slice(0, 200) + "..." : m.msg,
+        }));
+
       const resp = await fetch(`${API_URL}/api/EVENT/chatWithAi`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text, Ename: event?.Ename, language: AiLanguage }),
+        body: JSON.stringify({ message: text, Ename: event?.Ename, language: AiLanguage, history: chatHistory }),
       });
       console.log("AI Response:", resp);
 
@@ -184,8 +193,8 @@ const EventAIChat = ({ event, setAiVisible }) => {
       <div className="ai-chat-container">
         <div className="chat-header">
           <div className="header-title">
-            <span className="ai-icon">✦</span>
-            <h2>{event?.Ename} AI</h2>
+            <span className="ai-icon">◈</span>
+            <h2>AI Assistant</h2>
           </div>
 
           <div className="header-controls">

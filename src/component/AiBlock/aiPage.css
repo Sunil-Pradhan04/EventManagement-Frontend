@@ -270,6 +270,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.25s;
+  height: 100%;
 }
 
 .send-btn:hover:not(:disabled) {
@@ -296,11 +297,12 @@
 /* Mobile adjustments */
 @media (max-width: 520px) {
   .ai-chat-container {
-    height: 100dvh;
+    height: 90dvh;
     /* Use dynamic viewport height */
     max-height: 100dvh;
-    border-radius: 0;
+    border-radius: 10px;
     width: 100%;
+    scrollbar-width: none;
   }
 
   .chat-header {

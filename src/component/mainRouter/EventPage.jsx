@@ -4,7 +4,7 @@ import "./RStyle/EventPage.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { showToast } from "../../Store/notificationSlice";
-import { setLoader } from "../../Store/loderSlice";
+import { setLoader } from "../../Store/loaderSlice";
 import { updateEvent, fetchEventDetails } from "../../Store/eventSlice";
 import { selectProfile } from "../../Store/ProfileSlice";
 import AddAnnouncement from "./CreateEventAnoussment";

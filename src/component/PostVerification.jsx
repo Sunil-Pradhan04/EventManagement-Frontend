@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./style/PostVerificaton.css";
+import "./style/PostVerification.css";
 
 const PostVerification = ({ checkSession }) => {
   const navigate = useNavigate();

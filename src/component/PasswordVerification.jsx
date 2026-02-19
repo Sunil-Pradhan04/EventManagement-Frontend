@@ -37,7 +37,7 @@ const PasswordVerification = () => {
         return;
       }
 
-      navigate("/PostVerificaton");
+      navigate("/PostVerification");
     } catch (err) {
       setError("Verification failed. Please try again.");
     } finally {

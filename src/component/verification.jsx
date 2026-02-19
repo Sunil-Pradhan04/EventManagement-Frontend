@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import "./style/VerificationCode.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setLoader } from "../Store/loderSlice";
+import { setLoader } from "../Store/loaderSlice";
 import { API_URL } from "../config";
 
-const VerificationCode = () => {
+const VerificationCode = ({ checkSession }) => {
   const location = useLocation();
   const email = location.state?.email || "";
   const [code, setCode] = useState(["", "", "", "", "", ""]);
@@ -70,6 +70,7 @@ const VerificationCode = () => {
         if (!res.ok) {
           setError(data.message || "Verification failed. Please try again.");
         } else {
+          if (checkSession) await checkSession();
           navigate("/");
         }
       } catch (err) {

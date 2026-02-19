@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style/ChangePasswordRequest.css";
 import { useDispatch } from "react-redux";
-import { setLoader } from "../Store/loderSlice"; // import your loader action
+import { setLoader } from "../Store/loaderSlice"; // import your loader action
 import { API_URL } from "../config";
 
 const ChangePasswordRequest = () => {
@@ -81,7 +81,7 @@ const ChangePasswordRequest = () => {
             </p>
             <button
               className="btn_primary"
-              onClick={() => navigate("/PasswordVerificaton", { state: { email } })}
+              onClick={() => navigate("/PasswordVerification", { state: { email } })}
             >
               Enter Verification Code
             </button>

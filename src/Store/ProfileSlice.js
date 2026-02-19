@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { setLoader } from "./loderSlice";
+import { setLoader } from "./loaderSlice";
 import { API_URL } from "../config";
 
 export const fetchProfile = createAsyncThunk(

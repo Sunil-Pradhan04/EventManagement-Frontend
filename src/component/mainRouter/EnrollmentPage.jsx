@@ -4,12 +4,15 @@ import { useDispatch } from "react-redux";
 import { showToast } from "../../Store/notificationSlice";
 import { API_URL } from "../../config";
 
+import { setLoader } from "../../Store/loaderSlice";
+
 const EnrollmentPage = ({ userName, email, EventName, setShowEnrollment }) => {
   const dispatch = useDispatch();
 
 
   const handleEnrollment = async () => {
     try {
+      dispatch(setLoader(true));
       const response = await fetch(`${API_URL}/api/EVENT/Enrollment`, {
         method: "POST",
         credentials: "include",
@@ -19,17 +22,20 @@ const EnrollmentPage = ({ userName, email, EventName, setShowEnrollment }) => {
         body: JSON.stringify({ userName, UserEmail: email, EventName }),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
         dispatch(showToast({ message: "Enrollment Successful!", type: "success" }));
         setShowEnrollment(false);
       } else {
-        const errorData = await response.json();
-        dispatch(showToast({ message: "Enrollment Failed: " + errorData.message, type: "error" }));
+        dispatch(showToast({ message: data.message || "Enrollment Failed", type: "error" }));
       }
 
     } catch (err) {
       console.error("Enrollment Error:", err);
       dispatch(showToast({ message: "Something went wrong. Please try again.", type: "error" }));
+    } finally {
+      dispatch(setLoader(false));
     }
   };
 
@@ -50,7 +56,7 @@ const EnrollmentPage = ({ userName, email, EventName, setShowEnrollment }) => {
         <label>Email</label>
         <input type="email" value={email} readOnly />
 
-        <button className="confirmBtn" onClick={handleEnrollment}>Conform Register</button>
+        <button className="confirmBtn" onClick={handleEnrollment}>Confirm Register</button>
       </div>
     </div>
   );

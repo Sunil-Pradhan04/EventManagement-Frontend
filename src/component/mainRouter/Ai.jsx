@@ -7,6 +7,8 @@ import "./RStyle/Ai.css";
 const Ai = () => {
   const dispatch = useDispatch();
   const { list, loading } = useSelector((state) => state.events);
+  console.log(list);
+
 
   useEffect(() => {
     if (list.length === 0) {

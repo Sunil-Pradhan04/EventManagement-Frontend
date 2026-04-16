@@ -33,7 +33,6 @@ const EventPage = () => {
   const targetId = id || initialEvent?._id;
   const event = eventList.find((e) => e._id === targetId) || initialEvent || {};
 
-  console.log("EventPage ID:", id, "TargetID:", targetId, "Event:", event);
 
   const dispatch = useDispatch();
 

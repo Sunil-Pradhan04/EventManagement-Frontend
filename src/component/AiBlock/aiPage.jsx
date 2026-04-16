@@ -7,67 +7,98 @@ import { useSelector } from "react-redux";
 const formatMessage = (text) => {
   if (!text) return text;
 
-  // Split into lines
   const lines = text.split("\n");
   const elements = [];
-  let listItems = [];
+  let bulletItems = [];
+  let numberedItems = [];
 
-  const flushList = () => {
-    if (listItems.length > 0) {
-      elements.push(<ol key={`ol-${elements.length}`} className="ai-list">{listItems}</ol>);
-      listItems = [];
+  const flushBullets = () => {
+    if (bulletItems.length > 0) {
+      elements.push(<ul key={`ul-${elements.length}`} className="ai-list ai-bullet-list">{bulletItems}</ul>);
+      bulletItems = [];
+    }
+  };
+  const flushNumbered = () => {
+    if (numberedItems.length > 0) {
+      elements.push(<ol key={`ol-${elements.length}`} className="ai-list">{numberedItems}</ol>);
+      numberedItems = [];
     }
   };
 
   lines.forEach((line, idx) => {
-    // Check for numbered list: "1. text" or "1) text"
-    const listMatch = line.match(/^\s*(\d+)[.)]+\s+(.+)/);
-    if (listMatch) {
-      listItems.push(<li key={`li-${idx}`}>{parseBold(listMatch[2])}</li>);
+    const trimmed = line.trim();
+
+    // Horizontal rule ---
+    if (/^---+$/.test(trimmed) || /^\*\*\*+$/.test(trimmed)) {
+      flushBullets(); flushNumbered();
+      elements.push(<hr key={`hr-${idx}`} className="ai-hr" />);
       return;
     }
 
-    // Not a list item → flush any pending list
-    flushList();
+    // Headings: ###, ##, #
+    const headingMatch = trimmed.match(/^(#{1,3}) (.+)/);
+    if (headingMatch) {
+      flushBullets(); flushNumbered();
+      const level = headingMatch[1].length;
+      const Tag = `h${level + 2}`; // ### → h5, ## → h4, # → h3
+      elements.push(<Tag key={`h-${idx}`} className={`ai-heading ai-h${level}`}>{parseInline(headingMatch[2])}</Tag>);
+      return;
+    }
 
-    const trimmed = line.trim();
+    // Unordered bullets: - item  or  * item
+    const bulletMatch = line.match(/^\s*[-*] (.+)/);
+    if (bulletMatch) {
+      flushNumbered();
+      bulletItems.push(<li key={`li-${idx}`}>{parseInline(bulletMatch[1])}</li>);
+      return;
+    }
+
+    // Numbered list: 1. text  or  1) text
+    const numMatch = line.match(/^\s*(\d+)[.)]\s+(.+)/);
+    if (numMatch) {
+      flushBullets();
+      numberedItems.push(<li key={`li-${idx}`}>{parseInline(numMatch[2])}</li>);
+      return;
+    }
+
+    // Plain line
+    flushBullets(); flushNumbered();
     if (trimmed === "") {
       elements.push(<br key={`br-${idx}`} />);
     } else {
-      elements.push(<p key={`p-${idx}`} className="ai-para">{parseBold(trimmed)}</p>);
+      elements.push(<p key={`p-${idx}`} className="ai-para">{parseInline(trimmed)}</p>);
     }
   });
 
-  flushList();
+  flushBullets();
+  flushNumbered();
   return elements;
 };
 
-/* Convert **bold** and URLs inside a string to <strong> and <a> */
-const parseBold = (str) => {
-  // First split on URLs to make them clickable
-  const urlRegex = /(https?:\/\/[^\s),"']+)/g;
-  const urlParts = str.split(urlRegex);
+/* Render inline markdown: **bold**, *italic*, URLs */
+const parseInline = (str) => {
+  // Tokenise: URLs | **bold** | *italic*
+  const tokenRegex = /(https?:\/\/[^\s),\"']+|\*\*[^*]+\*\*|\*[^*]+\*)/g;
+  const parts = str.split(tokenRegex);
+  const urlTest = /^https?:\/\//;
 
-  return urlParts.flatMap((segment, j) => {
-    // If this segment is a URL, render as a clickable link
-    if (urlRegex.test(segment)) {
-      urlRegex.lastIndex = 0; // reset regex state
-      return (
-        <a key={`link-${j}`} href={segment} target="_blank" rel="noopener noreferrer" className="ai-link">
-          {segment}
-        </a>
-      );
+  return parts.map((part, i) => {
+    if (urlTest.test(part)) {
+      return <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="ai-link">{part}</a>;
     }
-    // Otherwise, handle **bold** within the text
-    const boldParts = segment.split(/(\*\*[^*]+\*\*)/);
-    return boldParts.map((part, i) => {
-      if (part.startsWith("**") && part.endsWith("**")) {
-        return <strong key={`b-${j}-${i}`}>{part.slice(2, -2)}</strong>;
-      }
-      return part;
-    });
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={i}>{part.slice(2, -2)}</strong>;
+    }
+    if (part.startsWith("*") && part.endsWith("*")) {
+      return <em key={i}>{part.slice(1, -1)}</em>;
+    }
+    return part;
   });
 };
+
+// Keep parseBold as alias so nothing else breaks
+const parseBold = parseInline;
+
 
 const EventAIChat = ({ event, setAiVisible }) => {
   const [messages, setMessages] = useState([
@@ -124,9 +155,10 @@ const EventAIChat = ({ event, setAiVisible }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: text, Ename: event?.Ename, language: AiLanguage, history: chatHistory }),
       });
-      console.log("AI Response:", resp);
+
 
       const data = await resp.json();
+      console.log("AI Response:", data.response);
 
       // Update remaining count if provided
       if (data.remainingQuestions !== undefined && data.remainingQuestions !== "Unlimited") {
@@ -145,7 +177,7 @@ const EventAIChat = ({ event, setAiVisible }) => {
       let showText = "";
       for (let char of reply) {
         showText += char;
-        await new Promise((res) => setTimeout(res, 25));
+        await new Promise((res) => setTimeout(res, 4));
         setMessages((prev) => {
           const updated = [...prev];
           const last = updated[updated.length - 1];

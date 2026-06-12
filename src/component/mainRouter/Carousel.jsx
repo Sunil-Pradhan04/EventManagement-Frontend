@@ -9,10 +9,6 @@ const Carousel = () => {
   const Navigate = useNavigate();
 
   const cards = [
-    {
-      name: "Clubs",
-      img: "Clubs.jpg",
-    },
     { name: "Events",
       img: "Events.jpg",
      },

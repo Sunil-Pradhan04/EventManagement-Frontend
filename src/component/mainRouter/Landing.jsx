@@ -6,7 +6,7 @@ const Landing = () => {
 
   const highlights = [
     "Easily create and manage college or corporate events.",
-    "Instant enroll and register in events and clubs.",
+    "Instant enroll and register in events.",
     "Automated email & SMS updates.",
     "Live announcements and result updates.",
     "Chat with AI about events."

@@ -110,11 +110,7 @@ const Student_Login = ({ checkSession }) => {
   return (
     <div className="main_Container">
       <div className="bgStyle">
-        <div className="corner-panel corner-top-left">
-          <div className="tag">Club</div>
-          <div className="title">Tech Club</div>
-          <div className="desc">Register</div>
-        </div>
+
 
         <div className="corner-panel corner-top-right">
           <div className="tag">Events</div>

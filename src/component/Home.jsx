@@ -3,7 +3,6 @@ import "./style/Home.css";
 import { useDispatch } from "react-redux";
 import { NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import Landing from "./mainRouter/Landing";
-import Clubs from "./mainRouter/Clubs";
 import Events from "./mainRouter/Events";
 import Ai from "./mainRouter/Ai";
 import Profile from "./mainRouter/Profile";
@@ -59,7 +58,6 @@ const Home = () => {
           <NavLink to="/" end>
             Home
           </NavLink>
-          <NavLink to="/Clubs">Clubs</NavLink>
           <NavLink to="/Events">Events</NavLink>
           <NavLink to="/Ai">Ai</NavLink>
           <NavLink to="/Profile">Profile</NavLink>
@@ -92,9 +90,6 @@ const Home = () => {
               <NavLink to="/" end onClick={() => setSidebarOpen(false)}>
                 Home
               </NavLink>
-              <NavLink to="/Clubs" onClick={() => setSidebarOpen(false)}>
-                Clubs
-              </NavLink>
               <NavLink to="/Events" onClick={() => setSidebarOpen(false)}>
                 Events
               </NavLink>
@@ -112,7 +107,6 @@ const Home = () => {
       <div className="body">
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="Clubs" element={<Clubs />} />
           <Route path="/Events" element={<Events />} />
           <Route path="/Ai" element={<Ai />} />
           <Route path="/Profile" element={<Profile />} />

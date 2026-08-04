@@ -226,7 +226,7 @@ const EventAIChat = ({ event, setAiVisible }) => {
         <div className="chat-header">
           <div className="header-title">
             <span className="ai-icon">◈</span>
-            <h2>S-Orbit</h2>
+            <h2>S.A.I.R.A</h2>
             <h6>V3 - For Event</h6>
           </div>
 

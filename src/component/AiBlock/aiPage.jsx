@@ -104,7 +104,7 @@ const EventAIChat = ({ event, setAiVisible }) => {
   const [messages, setMessages] = useState([
     {
       sender: "AI",
-      msg: `Hey! I'm Orbit your AI Assistant build by Sunil. Ask me anything about the event.(24/7)😊`,
+      msg: `Hey! I'm S.A.I.R.A your AI Assistant build by Sunil. Ask me anything about the event.(24/7)😊`,
     },
   ]);
   const [userMsg, setUserMsg] = useState("");
